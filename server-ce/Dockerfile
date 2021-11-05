@@ -3,6 +3,7 @@
 # ---------------------------------------------
 
 ARG SHARELATEX_BASE_TAG=sharelatex/sharelatex-base:latest
+ARG SHARELATEX_BASE_TAG=localhost/sharelatex-full-base:latest
 FROM $SHARELATEX_BASE_TAG
 
 WORKDIR /var/www/sharelatex
