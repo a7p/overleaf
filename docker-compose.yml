@@ -4,7 +4,7 @@ services:
         restart: always
         # Server Pro users:
         # image: quay.io/sharelatex/sharelatex-pro
-        image: sharelatex/sharelatex
+        image: localhost/sharelatex-full 
         container_name: sharelatex
         depends_on:
             mongo:
@@ -12,12 +12,12 @@ services:
             redis:
                 condition: service_started
         ports:
-            - 80:80
+            - "8080:80"
         links:
             - mongo
             - redis
         volumes:
-            - ~/sharelatex_data:/var/lib/sharelatex
+            - /tmp/sharelatex_data:/var/lib/sharelatex
             ########################################################################
             ####  Server Pro: Uncomment the following line to mount the docker  ####
             ####             socket, required for Sibling Containers to work    ####
@@ -106,9 +106,9 @@ services:
         image: mongo:4.0
         container_name: mongo
         expose:
-            - 27017
+            - "27017"
         volumes:
-            - ~/mongo_data:/data/db
+            - /tmp/mongo_data:/data/db
         healthcheck:
             test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
             interval: 10s
@@ -120,9 +120,9 @@ services:
         image: redis:5
         container_name: redis
         expose:
-            - 6379
+            - "6379"
         volumes:
-            - ~/redis_data:/data
+            - /tmp/redis_data:/data
 
     # ldap:
     #    restart: always
